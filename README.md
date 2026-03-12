@@ -4,35 +4,28 @@ Python wrapper around [rtk](https://github.com/rtk-ai/rtk) — a CLI proxy that 
 
 This package downloads and installs the pre-built `rtk` binary for your platform, making it available via `pip install`.
 
+All thanks to @pszymkowiak for the real meat, I am just a lowly wrapper man.
+
 ## Installation
 
 ```bash
 pip install rtk-py
+uv pip install rtk-py
 ```
 
 ## Usage
 
-After installation, `rtk` is available on your `PATH`:
+After installation, `rtk` is available for use:
 
 ```bash
 rtk --version
 rtk init --global
-rtk gain
 ```
 
 See the [rtk documentation](https://github.com/rtk-ai/rtk#readme) for full usage details.
 
-## Supported Platforms
 
-| Platform         | Architecture |
-|------------------|-------------|
-| Linux            | x86_64      |
-| Linux            | aarch64     |
-| macOS            | x86_64      |
-| macOS            | arm64       |
-| Windows          | x86_64      |
-
-## How It Works
+## Packaging Inspirations
 
 This package follows the same pattern as [shfmt-py](https://github.com/MaxWinterstein/shfmt-py) and [shellcheck-py](https://github.com/shellcheck-py/shellcheck-py). During `pip install`, it downloads the appropriate pre-built binary from the [rtk GitHub releases](https://github.com/rtk-ai/rtk/releases) and installs it into your Python environment's `bin/` (or `Scripts/`) directory.
 
