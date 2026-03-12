@@ -94,7 +94,7 @@ def update_setup_py(new_version: str, hashes: dict[str, str]) -> None:
         for suffix in (".tar.gz", ".zip"):
             target = target.removesuffix(suffix)
 
-        pattern = re.compile(rf"('{re.escape(target)}',\s*\n\s*')[0-9a-f]{{64}}(')")
+        pattern = re.compile(rf'("{re.escape(target)}":\s*")[0-9a-f]{{64}}(")')
         text, count = pattern.subn(rf"\g<1>{sha}\2", text)
         if count == 0:
             raise RuntimeError(f"Could not find hash slot for target {target}")

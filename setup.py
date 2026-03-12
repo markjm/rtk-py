@@ -23,29 +23,22 @@ from setuptools.command.bdist_wheel import bdist_wheel as orig_bdist_wheel
 RTK_VERSION = '0.28.2'
 PY_VERSION = '1'
 
-ARCHIVE_SHA256 = {
-    ("linux", "x86_64"): (
-        "x86_64-unknown-linux-musl",
-        "c7b61e87b8430e42b04ab84fbe1b3b41b563454b0181247fd04844b8e9194371",
-    ),
-    ("linux", "aarch64"): (
-        "aarch64-unknown-linux-gnu",
-        "9dbf6dd22cfdf8b85b916505a5e96e1721d7af4cbe2f3dc90b87c9d677d01636",
-    ),
-    ("darwin", "x86_64"): (
-        "x86_64-apple-darwin",
-        "5ce5dab3b744a6ecce7ff9deea9fd4606f72c6490c9ee447d74883d9393dcbc7",
-    ),
-    ("darwin", "arm64"): (
-        "aarch64-apple-darwin",
-        "5dede8ac36648960a3ad52611856b9047a7817b755750d2bdbda8d4e9931db4d",
-    ),
-    ("win32", "AMD64"): (
-        "x86_64-pc-windows-msvc",
-        "8bd4ae58b8657f9afd82c76f28e06232b0e8f994e949176206425dcc6005936a",
-    ),
+ARCHIVE_HASHES = {
+    "x86_64-unknown-linux-musl": "c7b61e87b8430e42b04ab84fbe1b3b41b563454b0181247fd04844b8e9194371",
+    "aarch64-unknown-linux-gnu": "9dbf6dd22cfdf8b85b916505a5e96e1721d7af4cbe2f3dc90b87c9d677d01636",
+    "x86_64-apple-darwin": "5ce5dab3b744a6ecce7ff9deea9fd4606f72c6490c9ee447d74883d9393dcbc7",
+    "aarch64-apple-darwin": "5dede8ac36648960a3ad52611856b9047a7817b755750d2bdbda8d4e9931db4d",
+    "x86_64-pc-windows-msvc": "8bd4ae58b8657f9afd82c76f28e06232b0e8f994e949176206425dcc6005936a",
 }
-ARCHIVE_SHA256[("cygwin", "x86_64")] = ARCHIVE_SHA256[("win32", "AMD64")]
+
+PLATFORM_TARGETS = {
+    ("linux", "x86_64"): "x86_64-unknown-linux-musl",
+    ("linux", "aarch64"): "aarch64-unknown-linux-gnu",
+    ("darwin", "x86_64"): "x86_64-apple-darwin",
+    ("darwin", "arm64"): "aarch64-apple-darwin",
+    ("win32", "AMD64"): "x86_64-pc-windows-msvc",
+    ("cygwin", "x86_64"): "x86_64-pc-windows-msvc",
+}
 
 
 def _get_platform_key() -> tuple[str, str]:
@@ -66,11 +59,12 @@ def _get_platform_key() -> tuple[str, str]:
 
 def get_download_url() -> tuple[str, str]:
     key = _get_platform_key()
-    if key not in ARCHIVE_SHA256:
+    if key not in PLATFORM_TARGETS:
         raise ValueError(
-            f"Unsupported platform: {key}. Supported: {sorted(ARCHIVE_SHA256.keys())}"
+            f"Unsupported platform: {key}. Supported: {sorted(PLATFORM_TARGETS.keys())}"
         )
-    target, sha256 = ARCHIVE_SHA256[key]
+    target = PLATFORM_TARGETS[key]
+    sha256 = ARCHIVE_HASHES[target]
     is_windows = key[0] in ("win32", "cygwin")
     ext = "zip" if is_windows else "tar.gz"
     url = (
