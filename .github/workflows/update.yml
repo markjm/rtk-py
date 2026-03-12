@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   check-update:
@@ -19,4 +20,11 @@ jobs:
           python-version: "3.12"
 
       - name: Check and update
+        id: update
         run: python scripts/update_version.py
+
+      - name: Trigger publish workflow
+        if: steps.update.outputs.tag != ''
+        run: gh workflow run publish.yml --ref "${{ steps.update.outputs.tag }}"
+        env:
+          GH_TOKEN: ${{ github.token }}

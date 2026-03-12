@@ -137,6 +137,11 @@ def main() -> int:
         print("Running in CI — committing and pushing...")
         commit_and_push(latest, full_version)
         print(f"Pushed to main and tagged v{full_version}")
+
+        output_file = os.environ.get("GITHUB_OUTPUT")
+        if output_file:
+            with open(output_file, "a") as f:
+                f.write(f"tag=v{full_version}\n")
     else:
         print("Not in CI — skipping git commit/push.")
 
