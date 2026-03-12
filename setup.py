@@ -21,7 +21,7 @@ from setuptools.command.bdist_wheel import bdist_wheel as orig_bdist_wheel
 
 
 RTK_VERSION = '0.29.0'
-PY_VERSION = '1'
+PY_VERSION = '2'
 
 ARCHIVE_HASHES = {
     "x86_64-unknown-linux-musl": "17151422df8928eece4a66254b974d6a72658820be00cc1a18aa87cb77cffc68",
