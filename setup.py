@@ -20,15 +20,15 @@ from setuptools.command.install import install as orig_install
 from setuptools.command.bdist_wheel import bdist_wheel as orig_bdist_wheel
 
 
-RTK_VERSION = '0.34.1'
+RTK_VERSION = '0.34.2'
 PY_VERSION = '1'
 
 ARCHIVE_HASHES = {
-    "x86_64-unknown-linux-musl": "78bd7aed073c9d79c4f62fb111cbf8358e33c0c30e7eea301fbb8b5fd8656ff7",
-    "aarch64-unknown-linux-gnu": "e43c5d490661be94063078f5e938700450afe6f8925be0bad466fc2d933df5d0",
-    "x86_64-apple-darwin": "c3801ff4a9e5a23549a163aa1c0c115dd3b4d141c767bf0813ec18b944f701bb",
-    "aarch64-apple-darwin": "6223d70d5d9ba740d196dd08439a94644905fa4df15954165d99b5b924d02927",
-    "x86_64-pc-windows-msvc": "8e23e8a0e7b01a982e01ca09b9fdb09825446f63505011460662c181a35271fb",
+    "x86_64-unknown-linux-musl": "419b38216c8b1249cc72386d4bbcfe9e7808bde0af63159c826438da534f9e59",
+    "aarch64-unknown-linux-gnu": "fc168635cf65715dae5cb4f11cd76044b4c824702d50c328070b78ab31fb6c51",
+    "x86_64-apple-darwin": "6b7a34134a642a3de2066b1df85a98d813b52f84cbdf5fefa834c61c2d3edbf5",
+    "aarch64-apple-darwin": "dd982d9cb0d852fed724b7f5a7e0f25d6a665eeb9470b0caebfd76076b3b9b41",
+    "x86_64-pc-windows-msvc": "c54e3d81423538e2753cbe229977bd5e1e0b17f776f6b64696eafae70c762aa5",
 }
 
 PLATFORM_TARGETS = {
